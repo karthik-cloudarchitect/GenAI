@@ -1,0 +1,1 @@
+# Currently empty — placeholder for future dependencies like boto3 if needed
