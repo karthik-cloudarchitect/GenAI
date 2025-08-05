@@ -1,14 +1,51 @@
-# GenAI EKS Command Generator
-This project provides an end-to-end serverless solution to generate production-ready AWS EKS (eksctl) commands on-demand using Amazon Bedrock foundation models (Titan), AWS Lambda, and API Gateway.
+# 🤖 GenAI EKS Command Generator
 
+![AWS](https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white)
+![Terraform](https://img.shields.io/badge/Terraform-623CE4?style=for-the-badge&logo=terraform&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Lambda](https://img.shields.io/badge/AWS%20Lambda-FF9900?style=for-the-badge&logo=aws-lambda&logoColor=white)
 
-⚙️ How it works
+An intelligent, serverless solution for generating production-ready AWS EKS (eksctl) commands using Amazon Bedrock foundation models. This project leverages AI to transform natural language descriptions into precise Kubernetes cluster deployment commands.
+
+## 🏗️ Architecture Overview
+
+```mermaid
+graph TD
+    A[User Request] --> B[API Gateway]
+    B --> C[Lambda Function]
+    C --> D[Amazon Bedrock]
+    D --> E[AI Model - Titan]
+    E --> F[Generated eksctl Command]
+    F --> C
+    C --> B
+    B --> A
 ```
-User sends a JSON prompt to API Gateway endpoint.
-Lambda parses prompt, builds strict prompt text, and calls Amazon Bedrock.
-Bedrock generates a single-line eksctl command.
-Response returned to client via API Gateway.
-```
+
+## ⚙️ How It Works
+
+1. **Input**: User sends a JSON prompt to the API Gateway endpoint
+2. **Processing**: Lambda function parses the prompt and builds a structured request
+3. **AI Generation**: Amazon Bedrock Titan model generates the eksctl command
+4. **Output**: Production-ready eksctl command returned via API Gateway
+
+## 🚀 Features
+
+- ✅ **Serverless Architecture**: No infrastructure to manage
+- ✅ **AI-Powered**: Uses Amazon Bedrock Titan models
+- ✅ **Production Ready**: Generates valid eksctl commands
+- ✅ **RESTful API**: Easy integration via API Gateway
+- ✅ **Cost Effective**: Pay-per-use pricing model
+- ✅ **Scalable**: Automatically scales with demand
+
+## 📋 Prerequisites
+
+Before deploying this solution, ensure you have:
+
+- **AWS Account** with appropriate permissions
+- **AWS CLI** configured with credentials
+- **Terraform** v1.0+ installed
+- **Amazon Bedrock** access enabled in your region
+- **IAM Permissions** for Lambda, API Gateway, and Bedrock
 
 ## Deploy
 ```
