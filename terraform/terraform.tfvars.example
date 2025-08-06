@@ -1,0 +1,80 @@
+# Example Terraform Variables Configuration
+# Copy this file to terraform.tfvars and customize for your environment
+
+# AWS Region Configuration
+# Specify the AWS region where resources will be deployed
+# Choose a region where Amazon Bedrock is available
+aws_region = "us-east-1"  # Options: us-east-1, us-west-2, eu-west-1, ap-southeast-1, etc.
+
+# Project Configuration
+project_name = "genai-eks-generator"  # Used for resource naming and tagging
+environment  = "dev"                  # Environment: dev, staging, prod
+
+# Lambda Configuration
+lambda_function_name = "eks-genai-handler"
+lambda_runtime      = "python3.9"    # Supported: python3.8, python3.9, python3.10, python3.11
+lambda_memory_size  = 512            # MB: 128-10240 (in 1 MB increments)
+lambda_timeout      = 30             # Seconds: 1-900
+
+# API Gateway Configuration
+api_gateway_name        = "eks-command-generator-api"
+api_gateway_stage_name = "dev"        # Stage name: dev, staging, prod
+api_gateway_description = "API for generating EKS commands using AI"
+
+# Bedrock Configuration
+bedrock_model_id = "amazon.titan-text-express-v1"  # Available models:
+# - amazon.titan-text-express-v1 (recommended for general use)
+# - amazon.titan-text-lite-v1 (faster, lower cost)
+# - anthropic.claude-v2 (advanced reasoning)
+# - ai21.j2-mid-v1 (alternative option)
+
+# Enable this if you want to use a different model
+# bedrock_model_id = "anthropic.claude-v2"
+
+# Resource Tags
+# These tags will be applied to all resources for cost tracking and management
+resource_tags = {
+  Project     = "GenAI-EKS-Generator"
+  Owner       = "DevOps-Team"
+  Environment = "Development"
+  CostCenter  = "Engineering"
+  Purpose     = "AI-Command-Generation"
+}
+
+# Monitoring and Logging Configuration
+enable_cloudwatch_logs = true
+log_retention_days     = 14          # Days: 1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1827, 3653
+
+# X-Ray Tracing (for debugging and performance monitoring)
+enable_xray_tracing = false          # Set to true for production environments
+
+# API Gateway Throttling (requests per second)
+api_throttle_rate_limit  = 100       # Steady-state rate limit
+api_throttle_burst_limit = 200       # Maximum burst capacity
+
+# Security Configuration
+# CORS settings for API Gateway
+cors_allow_origins = ["*"]           # For production, specify exact domains
+cors_allow_methods = ["POST", "OPTIONS"]
+cors_allow_headers = ["Content-Type", "X-Amz-Date", "Authorization", "X-Api-Key", "X-Amz-Security-Token"]
+
+# Lambda Environment Variables
+lambda_environment_variables = {
+  LOG_LEVEL           = "INFO"        # DEBUG, INFO, WARN, ERROR
+  BEDROCK_MODEL_ID    = "amazon.titan-text-express-v1"
+  MAX_TOKENS          = "200"         # Maximum tokens for AI response
+  TEMPERATURE         = "0.1"         # AI creativity: 0.0 (deterministic) to 1.0 (creative)
+}
+
+# Optional: VPC Configuration (if you want Lambda in VPC)
+# Uncomment and configure if you need VPC deployment
+# vpc_id = "vpc-xxxxxxxxx"
+# subnet_ids = ["subnet-xxxxxxxx", "subnet-yyyyyyyy"]
+# security_group_ids = ["sg-xxxxxxxxx"]
+
+# Cost Optimization Settings
+# Reserved capacity for predictable workloads (optional)
+# lambda_reserved_concurrency = 10    # Uncomment to set reserved concurrency
+
+# Provisioned concurrency for low latency (optional, additional cost)
+# lambda_provisioned_concurrency = 5  # Uncomment for production with predictable load
