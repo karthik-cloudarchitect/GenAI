@@ -1,3 +1,20 @@
+# =============================================================================
+# GenAI AWS Lambda Function - Terraform Configuration
+# =============================================================================
+# This configuration deploys an AI-powered Lambda function for generating
+# EKS (Elastic Kubernetes Service) commands using AWS Bedrock.
+#
+# Components:
+# - Lambda execution role with necessary permissions
+# - Lambda function with AI model integration
+# - CloudWatch logs for monitoring
+# - API Gateway for HTTP endpoints (if needed)
+#
+# Use Case: Generate kubectl commands and EKS management scripts using AI
+# Model Integration: AWS Bedrock for natural language processing
+# Region: ap-southeast-2 (Sydney)
+# =============================================================================
+
 provider "aws" {
   region = "ap-southeast-2"
 }
